@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+$poppins: 'Poppins', sans-serif;
+$blue: #4070F4;
+$darkBlue: #0C152E;
+$darkGrey: #949FB4;
+$grey: #F0F3F6;
+
+.hidden
+    display: none;
+
+h1, h2, h3, h4, h5, h6, p
+    margin: 0 !important;
+
+html
+    background: rgb(26, 57, 114);
+
+
+// ~~~~~~~~~~~~ LOGIN ~~~~~~~~~~~~
+
+div.login
+    background: rgb(26, 57, 114);
+
+    img
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 0;
+        display: block;
+
+    div.login-page
+        z-index: 2;
+        background: $grey;
+        font-family: $poppins;
+        position: absolute;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 75vh;
+        bottom: 0;
+        width: 100%;
+        padding: 20px 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        animation-name: loginSlide;
+        animation-duration: 5s;
+
+        h1
+            font-size: 17px;
+
+        h2
+            font-size: 15px;
+            color: $darkBlue;
+            font-weight: 700;
+
+        h3
+            font-size: 13px;
+
+        p
+            font-size: 11px;
+            color: $darkGrey;
+
+        div#form
+            h2
+                margin: 0 0 10px !important;
+
+            input 
+                color: $darkGrey;
+                font-size: 13px;
+
+            button
+                background-color: $blue;
+                border: 0;
+                font-size: 15px;
+                font-weight: 400;
+                width: 100%;
+                margin: 0 0 10px;
+
+            .form-group
+                margin: 0 0 10px;
+
+        div.bottom
+            display: flex
+            justify-content: center;
+            width: 100%;
+
+            span
+                color: #0d6efd;
+                cursor: pointer;
+
+    .create-sequence:active
+        animation-name: loginSlideOut;
+        animation-duration: 2s;
+
+// ~~~~~~~~~~~ ANIMATIONS ~~~~~~~~~~~~~
+
+@keyframes loginSlide
+    from 
+        bottom: -75vh;
+    80%
+        bottom: -75vh;
+    to
+        bottom: 0vh;
+
+@keyframes loginSlideOut
+    from
+        bottom: 0vh;
+    to 
+        bottom: -75vh;

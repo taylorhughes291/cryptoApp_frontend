@@ -1,4 +1,4 @@
-import './App.css';
+import './App.sass';
 import {useState} from "react"
 import {Switch, Route} from "react-router-dom"
 import Login from "./pages/Login"

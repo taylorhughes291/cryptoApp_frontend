@@ -15,21 +15,24 @@ h1, h2, h3, h4, h5, h6, p
 html
     background: rgb(26, 57, 114);
 
+.animate
+    overflow: hidden;
+
+img.logo
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    display: block;
 
 // ~~~~~~~~~~~~ LOGIN ~~~~~~~~~~~~
 
-div.login
+div.login, div.create
     background: rgb(26, 57, 114);
+    overflow-y: hidden;
 
-    img
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 0;
-        display: block;
-
-    div.login-page
+    div.login-page, div.create-page
         z-index: 2;
         background: $grey;
         font-family: $poppins;
@@ -43,8 +46,6 @@ div.login
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        animation-name: loginSlide;
-        animation-duration: 5s;
 
         h1
             font-size: 17px;
@@ -89,16 +90,26 @@ div.login
                 color: #0d6efd;
                 cursor: pointer;
 
-    .create-sequence:active
+    .create-sequence
         animation-name: loginSlideOut;
         animation-duration: 2s;
+
+    .open-sequence
+        animation-name: loginSlide;
+        animation-duration: 3s;
+
+    .create-page
+        animation-name: loginSlideOut;
+        animation-direction: reverse;
+        animation-duration: 2s;
+
 
 // ~~~~~~~~~~~ ANIMATIONS ~~~~~~~~~~~~~
 
 @keyframes loginSlide
     from 
         bottom: -75vh;
-    80%
+    30%
         bottom: -75vh;
     to
         bottom: 0vh;

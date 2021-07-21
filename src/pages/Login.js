@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, FormGroup, Input } from 'reactstrap';
 import {useState} from 'react'
-import logo from '../assets/logo.png'
+import {withRouter} from 'react-router-dom'
 
 
 const Login = (props) => {
@@ -11,27 +11,26 @@ const Login = (props) => {
   const handleSubmit = () => {
     props.getLogin(user.username, user.password)
   }
-    const handleChange = (event) => {
-        console.log('handleChange - value', event.target.value)
-        console.log('handleChange - name', event.target.name)
-        const name = event.target.name 
-        setUser({
-          ...user,
-          [name]: event.target.value
-        })
-      }
-      React.useEffect(() => {
-        
-      }, []);
-  
-    const handleCreate = () => {
-      setCreateSequence(true)
+  const handleChange = (event) => {
+      console.log('handleChange - value', event.target.value)
+      console.log('handleChange - name', event.target.name)
+      const name = event.target.name 
+      setUser({
+        ...user,
+        [name]: event.target.value
+      })
     }
+    
+  const handleCreate = () => {
+    console.log("testing")
+    setCreateSequence(true)
+    setTimeout(() => props.history.push('/create'), 1900)
+    document.body.classList.remove("animation")
+  }
     
     return (
       <div className="login">
-        <img src={logo} alt="paper-hand logo"/>
-        <div className={createSequence ? "login-page create-sequence" : "login-page"}>
+        <div className={createSequence ? "login-page create-sequence" : "login-page open-sequence"}>
           <div className="form-forgot-cont">
             <div id= 'form'>
               <h2>Sign In</h2>
@@ -59,4 +58,4 @@ const Login = (props) => {
       </div>
       );
 }
-export default Login
+export default withRouter(Login)

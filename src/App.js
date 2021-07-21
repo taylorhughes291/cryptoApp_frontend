@@ -1,5 +1,5 @@
 import './App.sass';
-import {useState} from "react"
+import {useEffect, useState} from "react"
 import {Switch, Route} from "react-router-dom"
 import Login from "./pages/Login"
 import CreateAccount from "./pages/CreateAccount"
@@ -10,6 +10,7 @@ import Transactions from "./pages/Transactions"
 import Exchange from "./pages/Exchange"
 import Nav from "./components/Nav"
 import {withRouter, Redirect} from 'react-router-dom'
+import logo from './assets/logo.png'
 
 
 
@@ -110,8 +111,18 @@ const handleCreate = (newUser) => {
   // Render
   ///////////////////////////////
 
+  useEffect(() => {
+    console.log("test body")
+    if (user === "") {
+      document.body.classList.add('animate')
+    } else {
+      document.body.classList.remove('animate')
+    }
+  }, [])
+
   return (
     <div className="App">
+      <img className="logo" src={logo} alt="paper-hand logo"/>
       <Switch>
         <Route
           exact path="/"

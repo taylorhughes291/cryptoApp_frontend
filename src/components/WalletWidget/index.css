@@ -20,7 +20,7 @@ div.img-cont {
 }
 
 div.coin-price {
-    margin: 0 15px 0 0;
+    margin: 2px 8px 0 0;
     display: flex;
     flex-direction: column;
     justify-content: center;

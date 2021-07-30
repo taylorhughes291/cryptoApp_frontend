@@ -185,18 +185,21 @@ const WalletCoin = (props) => {
 
     return (
         <>
-            <h3>{coin.name}</h3>
+            <div className="page-header">
+                <i class="fas fa-chevron-left"></i>
+                <h3>{coin.name}</h3>
+            </div>
             <div className="wallet-coin-price-cont coin-data">
                 <p>{coin.name} owned:</p>
-                <h6>{wallet.amount} {coin.symbol.toUpperCase()}</h6>
+                <h4>{(Math.round(wallet.amount*1000000)/1000000)} {coin.symbol.toUpperCase()}</h4>
             </div>
             <div className="wallet-coin-amount-cont coin-data">
                 <p>Amount in USD:</p>
-                <h6>= ${wallet.amount * coin.current_price}</h6>
+                <h4>= ${Math.round(wallet.amount * coin.current_price*100)/100}</h4>
             </div>
             <div className="wallet-coin-amount-cont coin-data">
                 <p>Price of {coin.name}:</p>
-                <h6>${coin.current_price}</h6>
+                <h4>${coin.current_price.toLocaleString()}</h4>
             </div>
             <div id="cryptoChart"></div>
             <h4>Transactions</h4>

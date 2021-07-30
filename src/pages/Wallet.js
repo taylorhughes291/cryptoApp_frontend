@@ -42,10 +42,11 @@ const Wallet = (props) => {
                 <Link
                     to={item.coin === "USD" ?  "/wallet" :`/wallet/${item.coin}`}
                     key={index}
+                    className="entry-link"
                 >
                     <div 
                         key={index}
-                        className="wallet-widget-cont"
+                        className="wallet-widget-cont entry"
                         onClick={() => handleSelect(item.coin)}
                     >
                         <div className="img-name-cont">
@@ -60,9 +61,12 @@ const Wallet = (props) => {
                                 <h4>{item.coin}</h4>
                             </div>
                         </div>
-                        <div className="coin-price">
-                            <h4>{item.amount}</h4>
-                            {item.coin !== "USD" && <p>= ${item.amount * coinData.current_price}</p>}
+                        <div className="price-info-cont">
+                            <div className="coin-price">
+                                <h4>{Math.round(item.amount*1000000)/1000000} {item.coin}</h4>
+                                {item.coin !== "USD" && <p>= ${Math.round(item.amount * coinData.current_price*100)/100}</p>}
+                            </div>
+                            <i class="fas fa-info-circle"></i>
                         </div>
                     </div>
                 </Link>
@@ -70,7 +74,7 @@ const Wallet = (props) => {
         })
 
         return (
-            <>
+            <div id="wallet-page">
                 <Switch>
                     <Route
                         path="/wallet/:symbol"
@@ -85,7 +89,10 @@ const Wallet = (props) => {
                     <Route
                         path="/wallet"
                     >
-                    <h2>Wallet</h2>
+                        <div className="page-header">
+                            <h3>Wallet</h3>
+                            <p>Edit</p>
+                        </div>
                         {coins}
                         <Link
                             to="/exchange"
@@ -95,7 +102,7 @@ const Wallet = (props) => {
                     </Route>
 
                 </Switch>
-            </>
+            </div>
         )
     }
 

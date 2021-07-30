@@ -28,6 +28,7 @@ ul a {
     text-decoration: none;
     text-transform: none;
     color: #949FB4;
+    font-weight: 700;
 }
 
 ul a:hover {

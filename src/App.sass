@@ -118,7 +118,7 @@ div.login, div.create
 
 
 // ~~~~~~~~~~~~~~ HomePage ~~~~~~~~~~~~
-div#home
+div#home, div#wallet-page
     margin: 15px 10px 0;
 
     div.home-header
@@ -160,6 +160,57 @@ div#home
 
         p.negative
             color: red;
+
+    a
+        text-decoration: none;
+
+    a.entry-link
+        color: black;
+
+    div.page-header
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+
+        p
+            position: absolute;
+            right: 10px;
+            font-size: 15px;
+            display: none;
+
+        i
+            position: absolute;
+            left: 10px;
+            color: $blue;
+
+    div.price-info-cont
+        display: flex;
+        align-items: center;
+
+        i
+            color: $darkGrey;
+
+    div.coin-data
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 7px;
+
+        p
+            font-size: 11px;
+            color: $darkGrey;
+
+        h4
+            font-size: 13px;
+            font-weight: 700;
+
+    button
+        background-color: $blue;
+        border: 0;
+        font-size: 15px;
+        font-weight: 700;
+        width: 100%;
+        margin: 0 0 10px;
 
 // ~~~~~~~~~~~ ANIMATIONS ~~~~~~~~~~~~~
 

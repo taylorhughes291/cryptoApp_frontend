@@ -21,7 +21,7 @@ function App (props) {
   ///////////////////////////////
 
   const url = process.env.REACT_APP_BACKENDURL
-  const [user, setUser] = useState("")
+  const [user, setUser] = useState("6102e2cbf0eae7001573e018")
   const [wallet, setWallet] = useState({
     name: "",
     password: "",
@@ -121,7 +121,7 @@ const handleCreate = (newUser) => {
   }, [])
 
   return (
-    <div className="App">
+    <div className={props.location.pathname === "/login" || props.location.pathname === "/create" ? "App" : "App logged-in"}>
       <img className="logo" src={logo} alt="paper-hand logo"/>
       <Switch>
         <Route
@@ -189,7 +189,7 @@ const handleCreate = (newUser) => {
           />
         </Route>
       </Switch>
-        <div className={props.location.pathname === "/login" || props.location.pathname === "/create" ? "hidden" : ""}>
+        <div className={props.location.pathname === "/login" || props.location.pathname === "/create" ? "hidden nav" : "nav"}>
           <Nav 
           />
         </div>

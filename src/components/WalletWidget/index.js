@@ -31,10 +31,10 @@ const WalletWidget = (props) => {
             return (
                 <div 
                     key={index}
-                    className="wallet-widget-cont"
+                    className="wallet-widget-cont entry"
                 >
                     <div className="img-name-cont">
-                        <div className="img-cont">
+                        <div className={item.coin === "USD" ? "img-cont usd-img" : "img-cont"}>
                             <img 
                                 src={coinData.image} 
                                 alt={`${item.coin} logo`}
@@ -46,8 +46,8 @@ const WalletWidget = (props) => {
                         </div>
                     </div>
                     <div className="coin-price">
-                        <h4>{item.amount}</h4>
-                        {item.coin !== "USD" && <p>= ${item.amount * coinData.current_price}</p>}
+                        <h4>{Math.round(item.amount*1000000)/1000000} {item.coin}</h4>
+                        {item.coin !== "USD" && <p>= ${Math.round(item.amount * coinData.current_price*100)/100}</p>}
                     </div>
                 </div>
             )

@@ -23,7 +23,7 @@ const Home = (props) => {
     }, [])
 
     return (
-        <>
+        <div id="home">
             <div className="home-wallet home-header">
                 <h3>Wallet</h3>
                 <Link
@@ -49,7 +49,7 @@ const Home = (props) => {
                 wallet={props.wallet}
 
             />
-        </>
+        </div>
     )
 }
 

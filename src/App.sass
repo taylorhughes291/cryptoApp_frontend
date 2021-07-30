@@ -7,14 +7,17 @@ $darkGrey: #949FB4;
 $grey: #F0F3F6;
 
 .hidden
-    display: none;
+    display: none !important;
 
 h1, h2, h3, h4, h5, h6, p
     margin: 0 !important;
 
 html
-    background: rgb(26, 57, 114);
+    height: 100vh;
 
+    body
+        height: 100vh;
+        background: rgb(26, 57, 114);
 .animate
     overflow: hidden;
 
@@ -25,6 +28,16 @@ img.logo
     transform: translate(-50%, -50%);
     z-index: -1;
     display: block;
+
+div.App
+    
+    height: 100vh;
+    padding-bottom: 50px;
+    overflow-y: scroll;
+    font-family: $poppins;
+
+div.logged-in
+    background: $grey;
 
 // ~~~~~~~~~~~~ LOGIN ~~~~~~~~~~~~
 
@@ -92,17 +105,61 @@ div.login, div.create
 
     .create-sequence
         animation-name: loginSlideOut;
-        animation-duration: 2s;
+        animation-duration: 1s;
 
     .open-sequence
         animation-name: loginSlide;
-        animation-duration: 3s;
+        animation-duration: 2s;
 
     .create-page
         animation-name: loginSlideOut;
         animation-direction: reverse;
-        animation-duration: 2s;
+        animation-duration: 1s;
 
+
+// ~~~~~~~~~~~~~~ HomePage ~~~~~~~~~~~~
+div#home
+    margin: 15px 10px 0;
+
+    div.home-header
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        a
+            text-decoration: none;
+            p
+                font-size: 15px;
+
+    h3
+        font-weight: 700;
+        font-size: 20px;
+
+    div.entry
+        border-radius: 10px;
+        background-color: white;
+        padding: 0 10px;
+        height: 55px;
+
+        div.usd-img
+            width: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        h4
+            font-size: 13px;
+            font-weight: 700;
+
+        p
+            font-size: 11px;
+            color: $darkGrey;
+
+        p.positive
+            color: green;
+
+        p.negative
+            color: red;
 
 // ~~~~~~~~~~~ ANIMATIONS ~~~~~~~~~~~~~
 

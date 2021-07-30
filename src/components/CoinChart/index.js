@@ -18,7 +18,7 @@ const CoinChart = (props) => {
             return (
                 <div 
                     key={index}
-                    className="coin-chart-cont"
+                    className="coin-chart-cont entry"
                 >
                     <div className="img-name-cont">
                         <div className="img-cont">
@@ -30,7 +30,7 @@ const CoinChart = (props) => {
                         </div>
                         <div className="coin-name">
                             <h4>{item.name}</h4>
-                            <p>{item.price_change_percentage_24h}</p>
+                            <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative" }>{Math.round(item.price_change_percentage_24h*100)/100}%</p>
                         </div>
                     </div>
                     <div className="coin-price">

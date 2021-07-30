@@ -1,12 +1,12 @@
 import React from "react"
 import "./index.css"
-import {Link} from "react-router-dom"
+import {withRouter, Link} from 'react-router-dom'
 
 const Nav = (props) => {
     return (
         <nav className = 'navBar'>
             <ul>
-                <div className="nav-item-cont">
+                <div className={props.location.pathname === "/home" ? "nav-item-cont selected" : "nav-item-cont"}>
                     <Link
                         to="/home"
                     >
@@ -14,7 +14,7 @@ const Nav = (props) => {
                         <li>Home</li>
                     </Link>
                 </div>
-                <div className="nav-item-cont">
+                <div className={props.location.pathname === "/wallet" ? "nav-item-cont selected" : "nav-item-cont"}>
                     <Link
                         to="/wallet"
                     >
@@ -31,7 +31,7 @@ const Nav = (props) => {
                         </div>
                     </Link>
                 </div>
-                <div className="nav-item-cont">
+                <div className={props.location.pathname === "/transactions" ? "nav-item-cont selected" : "nav-item-cont"}>
                     <Link
                         to="/transactions"
                     >
@@ -39,7 +39,7 @@ const Nav = (props) => {
                         <li>Transactions</li>
                     </Link>
                 </div>
-                <div className="nav-item-cont">
+                <div className={props.location.pathname === "/coins" ? "nav-item-cont selected" : "nav-item-cont"}>
                     <Link
                         to="/coins"
                     >
@@ -52,4 +52,4 @@ const Nav = (props) => {
     )
 }
 
-export default Nav
+export default withRouter(Nav)

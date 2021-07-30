@@ -1,23 +1,21 @@
 div.wallet-widget {
-    background-color: none;;
+    background-color: none;
 }
 
 div.wallet-widget-cont {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid;
-    margin: 10px 10px;
-    height: 65px;
+    margin: 10px 0;
 }
 
 div.img-name-cont {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
 }
 
 div.img-cont {
-    width: 70px;
     margin: 0 10px 0 0;
 }
 
@@ -31,9 +29,4 @@ div.coin-price {
 
 div.coin-price p {
     margin: 0;
-}
-
-img.coin-logo {
-    height: 50px;
-    width: auto;
 }

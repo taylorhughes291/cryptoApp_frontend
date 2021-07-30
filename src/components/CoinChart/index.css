@@ -6,20 +6,9 @@ div.coin-chart-cont {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid;
-    margin: 10px 10px;
-    height: 65px;
+    margin: 10px 0;
 }
 
-div.img-name-cont {
-    display: flex;
-    align-items: center;
-}
-
-div.img-cont {
-    width: 70px;
-    margin: 0 10px 0 0;
-}
 
 div.coin-price {
     margin: 0 15px 0 0;
@@ -34,7 +23,7 @@ div.coin-price p {
 }
 
 img.coin-logo {
-    height: 50px;
+    height: 35px;
     width: auto;
 }
 

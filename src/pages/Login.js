@@ -12,8 +12,6 @@ const Login = (props) => {
     props.getLogin(user.username, user.password)
   }
   const handleChange = (event) => {
-      console.log('handleChange - value', event.target.value)
-      console.log('handleChange - name', event.target.name)
       const name = event.target.name 
       setUser({
         ...user,
@@ -24,7 +22,7 @@ const Login = (props) => {
   const handleCreate = () => {
     console.log("testing")
     setCreateSequence(true)
-    setTimeout(() => props.history.push('/create'), 1900)
+    setTimeout(() => props.history.push('/create'), 900)
     document.body.classList.remove("animation")
   }
     

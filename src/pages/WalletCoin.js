@@ -149,14 +149,14 @@ const WalletCoin = (props) => {
         return (
             <div className="transaction" key={index}>
                 <div className="transaction-item">
-                    <h6><Numeral value={item.boughtAmount} format={'+0,0.[000000]'} /> {item.coinBought}</h6>
+                    <h6 style={{'color': 'green'}}><Numeral value={item.boughtAmount} format={'+0,0.[000000]'} /> {item.coinBought}</h6>
                     <div className="image-cont">
                         <img className="coin-logo" src={coinBoughtData.image} alt={`${coinBoughtData.id} logo`} />
                     </div>
                 </div>
                 <i class="fas fa-exchange-alt"></i>
                 <div className="transaction-item">
-                    <h6><Numeral value={item.soldAmount * -1} format={'0,0.[000000]'} /> {item.coinSold}</h6>
+                    <h6 style={{'color': 'red'}}><Numeral value={item.soldAmount * -1} format={'0,0.[000000]'} /> {item.coinSold}</h6>
                     <div className="image-cont">
                         <img className="coin-logo" src={coinSoldData.image} alt={`${coinSoldData.id} logo`} />
                     </div>

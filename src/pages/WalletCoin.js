@@ -84,8 +84,7 @@ const WalletCoin = (props) => {
 		
 		let layout = {
             height: 200,
-            width: 300,
-            autosize: false,
+            autosize: true,
             margin: {
                 l: 5,
                 r: 5,

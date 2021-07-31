@@ -1,6 +1,7 @@
 import React from "react"
 import dollar from "../../assets/pngfind.com-bling-png-2896086.png"
 import "./index.css"
+import Numeral from "react-numeral"
 
 const WalletWidget = (props) => {
 
@@ -46,8 +47,8 @@ const WalletWidget = (props) => {
                         </div>
                     </div>
                     <div className="coin-price">
-                        <h4>{Math.round(item.amount*1000000)/1000000} {item.coin}</h4>
-                        {item.coin !== "USD" && <p>= ${Math.round(item.amount * coinData.current_price*100)/100}</p>}
+                        <h4><Numeral value={item.amount} format={"0,0.[000000]"} /> {item.coin}</h4>
+                        {item.coin !== "USD" && <p>= <Numeral value={item.amount * coinData.current_price} format={"$0,0[.]00"} /></p>}
                     </div>
                 </div>
             )

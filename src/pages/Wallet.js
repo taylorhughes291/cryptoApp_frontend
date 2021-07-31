@@ -3,6 +3,7 @@ import {Button} from "reactstrap"
 import {Link, Route, Switch} from "react-router-dom"
 import dollar from "../assets/pngfind.com-bling-png-2896086.png"
 import WalletCoin from "./WalletCoin"
+import Numeral from "react-numeral"
 
 
 const Wallet = (props) => {
@@ -28,11 +29,6 @@ const Wallet = (props) => {
     const loaded = () => {
         const coins = props.wallet.coins.map((item, index) => {
             let coinData = [...props.coins]
-            coinData.push({
-                id: "US Dollar",
-                symbol: "USD",
-                image: dollar,
-            })
             coinData = coinData.find((coinItem, coinIndex) => {
                 return (
                         item.coin.toLowerCase() === coinItem.symbol.toLowerCase()
@@ -63,10 +59,10 @@ const Wallet = (props) => {
                         </div>
                         <div className="price-info-cont">
                             <div className="coin-price">
-                                <h4>{Math.round(item.amount*1000000)/1000000} {item.coin}</h4>
-                                {item.coin !== "USD" && <p>= ${Math.round(item.amount * coinData.current_price*100)/100}</p>}
+                                <h4><Numeral value={item.amount} format={"0,0.[000000]"} /> {item.coin}</h4>
+                                {item.coin !== "USD" && <p>= <Numeral value={item.amount * coinData.current_price} format={"$0,0[.]00"} /></p>}
                             </div>
-                            <i class="fas fa-info-circle"></i>
+                            <i className="fas fa-info-circle"></i>
                         </div>
                     </div>
                 </Link>

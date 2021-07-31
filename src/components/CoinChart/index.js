@@ -1,5 +1,6 @@
 import React from "react"
 import "./index.css"
+import Numeral from "react-numeral"
 
 
 const CoinChart = (props) => {
@@ -30,11 +31,11 @@ const CoinChart = (props) => {
                         </div>
                         <div className="coin-name">
                             <h4>{item.name}</h4>
-                            <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative" }>{Math.round(item.price_change_percentage_24h*100)/100}%</p>
+                            <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative" }><Numeral value={item.price_change_percentage_24h/100} format={"0.000%"} /></p>
                         </div>
                     </div>
                     <div className="coin-price">
-                        <h4>${item.current_price}</h4>
+                        <h4><Numeral value={item.current_price} format={"$0,0.00"} /></h4>
                     </div>
                 </div>
             )

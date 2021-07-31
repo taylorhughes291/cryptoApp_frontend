@@ -1,6 +1,7 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Plotly from "plotly.js/dist/plotly";
+import Numeral from "react-numeral"
 
 const WalletCoin = (props) => {
 
@@ -69,7 +70,6 @@ const WalletCoin = (props) => {
 
     const totalChart = (data) => {
 		const priceChart = {
-			name: "Price($)",
             x: data.time.map((time)=> new Date(time)),
             y: data.price,
             type: "scatter",
@@ -77,105 +77,92 @@ const WalletCoin = (props) => {
 			xaxis: "x",
             yaxis: "y1",
             line: {
-            color: "rgb(12, 253, 1)",
-            width: 3
+            color: "rgb(242, 169, 0)"
             },
         };
     
-		const volumeChart = {
-			name: "Vol($Billion)",
-			x: data.time.map((time) => new Date(time)),
-            y: data.volume,
-            type: "scatter",
-            mode: "lines",
-            xaxis: "x",
-            yaxis: "y2",
-            line: {
-                width: 3,
-                color: "rgb(252, 15, 192)"
-            },
-        };
+		
 		let layout = {
-            title: {
-                text: 'Live Chart',
-                font: {
-                    family: 'monospace',
-                    size: 36,
-                    color: 'rgb(51, 51, 255)',
-                }
+            height: 200,
+            width: 300,
+            autosize: false,
+            margin: {
+                l: 5,
+                r: 5,
+                b: 5,
+                t: 5,
+                pad: 5
             },
-            height: "100%",
-            autosize: true,
             
 			xaxis: {
-                title: 'Time',
-                titlefont: {
-                    family: 'Arial',
-                    font: 'bold',
-                    size: 24,
-                    color: 'rgb(255, 255, 0)'
-                },
                 // autotick: true,
                 tickfont: { 
-                    color: 'rgb(255, 255, 255)',
-                    family: 'Arial',
-                    size: 20
+                    color: '#949FB4',
+                    family: 'poppins',
+                    size: 11
                 },
                 tickangle: 'auto',
-                ticks: 'outside',
+                ticks: '',
                 tickwidth: 5,
                 ticklen: 8,
                 tickcolor: 'rgb(0, 255, 255)',
+                tickformat: '%H:%m',
                 showticklabels: true,
                 automargin: true,
-				anchor: "y2",
 			},
 			yaxis: {
-                title: 'Price',
-                titlefont: {
-                    family: 'Arial',
-                    font: 'bold',
-                    size: 24,
-                    color: 'rgb(255, 255, 0)'
-                },
                 // autotick: true,
                 tickfont: { 
-                    color: 'rgb(255, 255, 255)',
-                    family: 'Arial',
-                    size: 20
+                    color: '#949FB4',
+                    family: 'poppins',
+                    size: 11
                 },
                 tickangle: 'auto',
-                ticks: 'outside',
+                ticks: '',
                 tickwidth: 5,
                 ticklen: 8,
-                tickcolor: 'rgb(0, 255, 255)',
+                tickcolor: '#949FB4',
+                tickprefix: '$',
                 showticklabels: true,
-                
-				domain: [0.2, 1],
                 anchor: "x",
                 automargin: true,
 			},
-			yaxis2: {
-				showticklabels: false,
-				domain: [0, 0.2],
-				anchor: "x",
-            },
-            // paper_bgcolor: 'rgba(0, 0, 0, 0.5)',
+            paper_bgcolor: '#FFFFFF',
 		};
-    var allChart = [priceChart, volumeChart];
-    var config = {responsive: true}
+    var allChart = [priceChart];
+    var config = {
+        responsive: true,
+        displayModeBar: false,
+        staticPlot: true
+    }
 	Plotly.react("cryptoChart", allChart, layout, config);
 	};
 
 
     const transactionDisplay = transactions.map((item, index) => {
+        const coinBoughtData = coinData.find((item2, index2) => {
+            return item.coinBought.toLowerCase() === item2.symbol.toLowerCase()
+        })
+        const coinSoldData = coinData.find((item2, index2) => {
+            return item.coinSold.toLowerCase() === item2.symbol.toLowerCase()
+        })
+        console.log(coinSoldData);
         return (
-            <>
-                <div className="transaction-display">
-                    <h6>Bought: {item.boughtAmount} {item.coinBought}</h6>
-                    <h6>Sold: {item.soldAmount} {item.coinSold}</h6>
+            <div className="transaction" key={index}>
+                <div className="transaction-item">
+                    <h6><Numeral value={item.boughtAmount} format={'+0,0.[000000]'} /> {item.coinBought}</h6>
+                    <div className="image-cont">
+                        <img className="coin-logo" src={coinBoughtData.image} alt={`${coinBoughtData.id} logo`} />
+                    </div>
                 </div>
-            </>
+                <i class="fas fa-exchange-alt"></i>
+                <div className="transaction-item">
+                    <h6><Numeral value={item.soldAmount * -1} format={'0,0.[000000]'} /> {item.coinSold}</h6>
+                    <div className="image-cont">
+                        <img className="coin-logo" src={coinSoldData.image} alt={`${coinSoldData.id} logo`} />
+                    </div>
+                </div>
+            </div>
         )
     })
 
@@ -191,15 +178,15 @@ const WalletCoin = (props) => {
             </div>
             <div className="wallet-coin-price-cont coin-data">
                 <p>{coin.name} owned:</p>
-                <h4>{(Math.round(wallet.amount*1000000)/1000000)} {coin.symbol.toUpperCase()}</h4>
+                <h4><Numeral value={wallet.amount} format={"0,0.[000000]"} /> {coin.symbol.toUpperCase()}</h4>
             </div>
             <div className="wallet-coin-amount-cont coin-data">
                 <p>Amount in USD:</p>
-                <h4>= ${Math.round(wallet.amount * coin.current_price*100)/100}</h4>
+                <h4>= <Numeral value={wallet.amount * coin.current_price} format={"$0,0[.]00"} /></h4>
             </div>
             <div className="wallet-coin-amount-cont coin-data">
                 <p>Price of {coin.name}:</p>
-                <h4>${coin.current_price.toLocaleString()}</h4>
+                <h4><Numeral value={coin.current_price} format={"$0,0[.]00"} /></h4>
             </div>
             <div id="cryptoChart"></div>
             <h4>Transactions</h4>

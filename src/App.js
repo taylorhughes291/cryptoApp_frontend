@@ -11,6 +11,7 @@ import Exchange from "./pages/Exchange"
 import Nav from "./components/Nav"
 import {withRouter, Redirect} from 'react-router-dom'
 import logo from './assets/logo.png'
+import dollar from "./assets/pngfind.com-bling-png-2896086.png"
 
 
 
@@ -103,7 +104,13 @@ const handleCreate = (newUser) => {
     fetch(url)
     .then((response) => (response.json()))
     .then((data) => {
-      setCoins(data)
+      const coinArray = data
+      coinArray.push({
+        id: "US Dollar",
+        symbol: "USD",
+        image: dollar,
+      })
+      setCoins(coinArray)
     })
   }
 

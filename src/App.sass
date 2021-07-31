@@ -167,22 +167,7 @@ div#home, div#wallet-page
     a.entry-link
         color: black;
 
-    div.page-header
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 10px;
 
-        p
-            position: absolute;
-            right: 10px;
-            font-size: 15px;
-            display: none;
-
-        i
-            position: absolute;
-            left: 10px;
-            color: $blue;
 
     div.price-info-cont
         display: flex;
@@ -204,6 +189,10 @@ div#home, div#wallet-page
             font-size: 13px;
             font-weight: 700;
 
+
+// ~~~~~~~~~~~~~~ Wallet Page ~~~~~~~~~~~~~~~
+
+div#wallet-page
     button
         background-color: $blue;
         border: 0;
@@ -211,6 +200,53 @@ div#home, div#wallet-page
         font-weight: 700;
         width: 100%;
         margin: 0 0 10px;
+
+    svg.main-svg
+        border-radius: 10px;
+
+    div.page-header
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+
+        p
+            position: absolute;
+            right: 10px;
+            font-size: 15px;
+            display: none;
+
+        i
+            position: absolute;
+            left: 10px;
+            color: $blue;
+    
+    div#cryptoChart
+        margin-bottom: 15px;
+
+    h4 
+        font-weight: 700;
+        font-size: 15px;
+
+    div.transaction
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 70px;
+        background: white;
+        border-radius: 10px;
+        margin-top: 10px;
+
+        i
+            color: $darkGrey;
+
+        div.transaction-item
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 120px;
+    
 
 // ~~~~~~~~~~~ ANIMATIONS ~~~~~~~~~~~~~
 

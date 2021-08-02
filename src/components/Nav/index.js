@@ -3,6 +3,7 @@ import "./index.css"
 import {withRouter, Link} from 'react-router-dom'
 
 const Nav = (props) => {
+
     return (
         <nav className = 'navBar'>
             <ul>
@@ -14,7 +15,7 @@ const Nav = (props) => {
                         <li>Home</li>
                     </Link>
                 </div>
-                <div className={props.location.pathname === "/wallet" ? "nav-item-cont selected" : "nav-item-cont"}>
+                <div className={/\/wallet/.test(props.location.pathname) ? "nav-item-cont selected" : "nav-item-cont"}>
                     <Link
                         to="/wallet"
                     >
@@ -39,7 +40,7 @@ const Nav = (props) => {
                         <li>Transactions</li>
                     </Link>
                 </div>
-                <div className={props.location.pathname === "/coins" ? "nav-item-cont selected" : "nav-item-cont"}>
+                <div className={/\/coins/.test(props.location.pathname) ? "nav-item-cont selected" : "nav-item-cont"}>
                     <Link
                         to="/coins"
                     >

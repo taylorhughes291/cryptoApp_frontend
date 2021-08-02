@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
+import {Link} from "react-router-dom"
 import Plotly from "plotly.js/dist/plotly";
 import Numeral from "react-numeral"
 
@@ -154,7 +155,7 @@ const WalletCoin = (props) => {
                         <img className="coin-logo" src={coinBoughtData.image} alt={`${coinBoughtData.id} logo`} />
                     </div>
                 </div>
-                <i class="fas fa-exchange-alt"></i>
+                <i className="fas fa-exchange-alt"></i>
                 <div className="transaction-item">
                     <h6 style={{'color': 'red'}}><Numeral value={item.soldAmount * -1} format={'0,0.[000000]'} /> {item.coinSold}</h6>
                     <div className="image-cont">
@@ -172,7 +173,11 @@ const WalletCoin = (props) => {
     return (
         <>
             <div className="page-header">
-                <i class="fas fa-chevron-left"></i>
+                <Link
+                    to="/wallet"
+                >
+                    <i class="fas fa-chevron-left"></i>
+                </Link>
                 <h3>{coin.name}</h3>
             </div>
             <div className="wallet-coin-price-cont coin-data">

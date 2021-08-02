@@ -109,6 +109,7 @@ const handleCreate = (newUser) => {
         id: "US Dollar",
         symbol: "USD",
         image: dollar,
+        name: "US Dollar"
       })
       setCoins(coinArray)
     })

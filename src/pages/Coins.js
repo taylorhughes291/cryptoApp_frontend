@@ -2,6 +2,7 @@ import React, {useState} from "react"
 import {Button} from "reactstrap"
 import {Link, Route, Switch} from "react-router-dom"
 import CoinsCoin from "./CoinsCoin"
+import Numeral from "react-numeral"
 
 const Coins = (props) => {
     ///////////////////////
@@ -30,32 +31,32 @@ const Coins = (props) => {
                     key={index}
                 >
                     <div 
-                        key={index}
-                        className="wallet-widget-cont"
-                        onClick={() => handleSelect(item.symbol)}
-                    >
-                        <div className="img-name-cont">
-                            <div className="img-cont">
-                                <img 
-                                    src={item.image} 
-                                    alt={`${item.name} logo`}
-                                    className="coin-logo"
-                                />
-                            </div>
-                            <div className="coin-name">
-                                <h4>{item.name}</h4>
-                            </div>
+                    key={index}
+                    className="coin-chart-cont entry"
+                >
+                    <div className="img-name-cont">
+                        <div className="img-cont">
+                            <img 
+                                src={item.image} 
+                                alt={`${item.name} logo`}
+                                className="coin-logo"
+                            />
                         </div>
-                        <div className="coin-price">
-                            <h4>{item.currentPrice}</h4>
+                        <div className="coin-name">
+                            <h4>{item.name}</h4>
+                            <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative" }><Numeral value={item.price_change_percentage_24h/100} format={"0.000%"} /></p>
                         </div>
                     </div>
+                    <div className="coin-price">
+                        <h4><Numeral value={item.current_price} format={"$0,0.00"} /></h4>
+                    </div>
+                </div>
                 </Link>
             )
         })
 
         return (
-            <>
+            <div id="coin-page">
                 <Switch>
                     <Route
                         path="/coins/:symbol"
@@ -69,7 +70,10 @@ const Coins = (props) => {
                     <Route
                         path="/coins"
                     >
-                    <h2>Coins</h2>
+                        <div className="page-header">
+                            <h3>Coins</h3>
+                            <p>Edit</p>
+                        </div>
                         {coins}
                         <Link
                             to="/exchange"
@@ -79,7 +83,7 @@ const Coins = (props) => {
                     </Route>
 
                 </Switch>
-            </>
+            </div>
         )
     }
 

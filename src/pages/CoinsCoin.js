@@ -1,6 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Plotly from "plotly.js/dist/plotly";
+import {Link} from "react-router-dom"
+import Numeral from "react-numeral"
+
 const CoinsCoin = (props) => {
     ///////////////////////
     // Constants
@@ -52,7 +55,6 @@ const CoinsCoin = (props) => {
 
     const totalChart = (data) => {
 		const priceChart = {
-			name: "Price($)",
             x: data.time.map((time)=> new Date(time)),
             y: data.price,
             type: "scatter",
@@ -60,93 +62,63 @@ const CoinsCoin = (props) => {
 			xaxis: "x",
             yaxis: "y1",
             line: {
-            color: "rgb(12, 253, 1)",
-            width: 3
+            color: "rgb(242, 169, 0)"
             },
         };
     
-		const volumeChart = {
-			name: "Vol($Billion)",
-			x: data.time.map((time) => new Date(time)),
-            y: data.volume,
-            type: "scatter",
-            mode: "lines",
-            xaxis: "x",
-            yaxis: "y2",
-            line: {
-                width: 3,
-                color: "rgb(252, 15, 192)"
-            },
-        };
+		
 		let layout = {
-            title: {
-                text: 'Live Chart',
-                font: {
-                    family: 'monospace',
-                    size: 36,
-                    color: 'rgb(51, 51, 255)',
-                }
-            },
-            height: "100%",
+            height: 200,
             autosize: true,
+            margin: {
+                l: 5,
+                r: 5,
+                b: 5,
+                t: 5,
+                pad: 5
+            },
             
 			xaxis: {
-                title: 'Time',
-                titlefont: {
-                    family: 'Arial',
-                    font: 'bold',
-                    size: 24,
-                    color: 'rgb(255, 255, 0)'
-                },
                 // autotick: true,
                 tickfont: { 
-                    color: 'rgb(255, 255, 255)',
-                    family: 'Arial',
-                    size: 20
+                    color: '#949FB4',
+                    family: 'poppins',
+                    size: 11
                 },
                 tickangle: 'auto',
-                ticks: 'outside',
+                ticks: '',
                 tickwidth: 5,
                 ticklen: 8,
                 tickcolor: 'rgb(0, 255, 255)',
+                tickformat: '%H:%m',
                 showticklabels: true,
                 automargin: true,
-				anchor: "y2",
 			},
 			yaxis: {
-                title: 'Price',
-                titlefont: {
-                    family: 'Arial',
-                    font: 'bold',
-                    size: 24,
-                    color: 'rgb(255, 255, 0)'
-                },
                 // autotick: true,
                 tickfont: { 
-                    color: 'rgb(255, 255, 255)',
-                    family: 'Arial',
-                    size: 20
+                    color: '#949FB4',
+                    family: 'poppins',
+                    size: 11
                 },
                 tickangle: 'auto',
-                ticks: 'outside',
+                ticks: '',
                 tickwidth: 5,
                 ticklen: 8,
-                tickcolor: 'rgb(0, 255, 255)',
+                tickcolor: '#949FB4',
+                tickprefix: '$',
                 showticklabels: true,
-                
-				domain: [0.2, 1],
                 anchor: "x",
                 automargin: true,
 			},
-			yaxis2: {
-				showticklabels: false,
-				domain: [0, 0.2],
-				anchor: "x",
-            },
-            // paper_bgcolor: 'rgba(0, 0, 0, 0.5)',
+            paper_bgcolor: '#FFFFFF',
 		};
-    var allChart = [priceChart, volumeChart];
-    var config = {responsive: true}
+    var allChart = [priceChart];
+    var config = {
+        responsive: true,
+        displayModeBar: false,
+        staticPlot: true
+    }
 	Plotly.react("cryptoChart", allChart, layout, config);
 	};
 
@@ -155,22 +127,29 @@ const CoinsCoin = (props) => {
     ///////////////////////
     return (
         <>
-            <h3>{coin.name}</h3>
+            <div className="page-header">
+                <Link
+                    to="/coins"
+                >
+                    <i class="fas fa-chevron-left"></i>
+                </Link>
+                <h3>{coin.name}</h3>
+            </div>
             <div className="wallet-coin-price-cont coin-data">
                 <p>Price of {coin.name}:</p>
-                <h6>${coin.current_price}</h6>
+                <h4><Numeral value={coin.current_price} format={"$0,0[.]00"} /></h4>
             </div>
             <div className="wallet-coin-amount-cont coin-data">
-                <p>% Change (24 hours)</p>
-                <h6>{coin.price_change_percentage_24h}%</h6>
+                <p>% Change (24 Hours)</p>
+                <h4><Numeral value={coin.price_change_percentage_24h/100} format={"0.000%"} /></h4>
             </div>
             <div className="wallet-coin-amount-cont coin-data">
                 <p>24 Hour High:</p>
-                <h6>${coin.high_24h}</h6>
+                <h4><Numeral value={coin.high_24h} format={"$0,0[.]00"} /></h4>
             </div>
             <div className="wallet-coin-amount-cont coin-data">
                 <p>24 Hour Low:</p>
-                <h6>${coin.low_24h}</h6>
+                <h4><Numeral value={coin.low_24h} format={"$0,0[.]00"} /></h4>
             </div>
             <div id="cryptoChart"></div>
         </>

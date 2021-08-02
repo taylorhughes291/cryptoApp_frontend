@@ -1,4 +1,5 @@
 import React from "react"
+import Numeral from "react-numeral"
 
 const Transactions = (props) => {
         
@@ -7,7 +8,7 @@ const Transactions = (props) => {
     //////////////////////////
     
     const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-
+    const coinData = props.coinData
     //////////////////////////
     // Functions
     //////////////////////////
@@ -57,17 +58,36 @@ const Transactions = (props) => {
 
     console.log(transDisplay)
     transDisplay = transDisplay.map((item, index) => {
-        const transactions = item.data.map((item2, index) => {
-            return(
-                <div className="transaction-display">
-                    <h6>Exchange {item2.coinSold}/{item2.coinBought}</h6>
-                    <p>+{item2.boughtAmount}</p>
+        const transactions = item.data.map((item2, index2) => {
+            const coinBoughtData = coinData.find((item3, index3) => {
+                console.log("item2:", item2)
+                console.log("item3", item3);
+                return item2.coinBought.toLowerCase() === item3.symbol.toLowerCase()
+            })
+            const coinSoldData = coinData.find((item3, index3) => {
+                return item2.coinSold.toLowerCase() === item3.symbol.toLowerCase()
+            })
+            return (
+                <div className="transaction" key={index}>
+                    <div className="transaction-item">
+                        <h6 style={{'color': 'green'}}><Numeral value={item2.boughtAmount} format={'+0,0.[000000]'} /> {item2.coinBought}</h6>
+                        <div className="image-cont">
+                            <img className="coin-logo" src={coinBoughtData.image} alt={`${coinBoughtData.id} logo`} />
+                        </div>
+                    </div>
+                    <i className="fas fa-exchange-alt"></i>
+                    <div className="transaction-item">
+                        <h6 style={{'color': 'red'}}><Numeral value={item2.soldAmount * -1} format={'0,0.[000000]'} /> {item2.coinSold}</h6>
+                        <div className="image-cont">
+                            <img className="coin-logo" src={coinSoldData.image} alt={`${coinSoldData.id} logo`} />
+                        </div>
+                    </div>
                 </div>
             )
         })
         return (
             <div className="transaction-date-cont">
-                <h3>{item.date}</h3>
+                <h4>{item.date}</h4>
                 {transactions}
             </div>
         )
@@ -78,8 +98,11 @@ const Transactions = (props) => {
     //////////////////////////
 
     return (
-        <div className="transactions-cont">
-            <h2>Transactions</h2>
+        <div id="transactions-page">
+            <div className="page-header">
+                <h3>Transactions</h3>
+                <p>Edit</p>
+            </div>
             {transDisplay}
         </div>
     )

@@ -1,5 +1,6 @@
 import React, {useState} from "react"
 import {withRouter} from "react-router-dom"
+import {Link} from "react-router-dom"
 
 const Exchange = (props) => {
     
@@ -128,14 +129,21 @@ const Exchange = (props) => {
     /////////////////////
 
     return (
-        <>
-            <h2>Exchange</h2>
+        <div id="exchange-page">
+            <div className="page-header">
+                <Link
+                    to="/home"
+                >
+                    <i class="fas fa-chevron-left"></i>
+                </Link>
+                <h3>Exchange</h3>
+            </div>
             <div className="form-cont">
                 <form
                     onSubmit={handleSubmit}
                 >
                     <div className="sell-cont">
-                        <h6>Sell:</h6>
+                        <h4>Sell:</h4>
                         <p>Choose Wallet:</p>
                         <select
                             name="sellCoin"
@@ -155,7 +163,7 @@ const Exchange = (props) => {
                         <p>= ${formData.sellAmount * formData.sellPrice}</p>
                     </div>
                     <div className="buy-cont">
-                        <h6>Buy:</h6>
+                        <h4>Buy:</h4>
                         <p>Choose Wallet:</p>
                         <select
                             onChange={handleBuyChange}
@@ -170,10 +178,10 @@ const Exchange = (props) => {
                         ></input>
                         <p>= ${formData.boughtAmount ? (formData.sellAmount*formData.sellPrice) : 0}</p>
                     </div>
-                    <input  type="submit"></input>
+                    <input className="submit" type="submit" value="Exchange"></input>
                 </form>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -118,7 +118,7 @@ div.login, div.create
 
 
 // ~~~~~~~~~~~~~~ HomePage ~~~~~~~~~~~~
-div#home, div#wallet-page, div#coin-page
+div#home, div#wallet-page, div#coin-page, div#transactions-page, div#exchange-page
     margin: 15px 10px 0;
 
     div.home-header
@@ -198,14 +198,17 @@ div#home, div#wallet-page, div#coin-page
 
 // ~~~~~~~~~~~~~~ Wallet Page ~~~~~~~~~~~~~~~
 
-div#wallet-page, div#coin-page
-    button
+div#wallet-page, div#coin-page, div#transactions-page, div#exchange-page
+    button, input.submit
         background-color: $blue;
         border: 0;
         font-size: 15px;
         font-weight: 700;
         width: 100%;
         margin: 0 0 10px;
+        border-radius: 7px;
+        color: white;
+        height: 40px;
 
     svg.main-svg
         border-radius: 10px;
@@ -247,6 +250,12 @@ div#wallet-page, div#coin-page
         i
             color: $darkGrey;
 
+        h6
+            font-family: $poppins
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 4px !important;
+
         div.transaction-item
             display: flex;
             flex-direction: column;
@@ -254,6 +263,34 @@ div#wallet-page, div#coin-page
             align-items: center;
             width: 120px;
     
+// ~~~~~~~~~~~ Exchange Page ~~~~~~~~~~~~~
+div#exchange-page
+    div.sell-cont, div.buy-cont
+        background: white;
+        border-radius: 10px;
+        padding: 5px;
+        margin: 0 0 10px;
+
+        *
+            margin-bottom: 7px;
+
+        input, select
+            width: 100%;
+            height: 30px;
+            border-radius: 5px;
+            border: 1px solid $darkGrey;
+
+    h4, select
+        font-size: 14px;
+        font-weight: 400;
+
+        option
+            color: $darkGrey;
+
+    p
+        font-size: 11px;
+        color: $darkGrey;
+
 
 // ~~~~~~~~~~~ ANIMATIONS ~~~~~~~~~~~~~
 

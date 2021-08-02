@@ -184,6 +184,7 @@ const handleCreate = (newUser) => {
         >
           <Transactions 
             transactions={transactions}
+            coinData={coins}
           />
         </Route>
         <Route

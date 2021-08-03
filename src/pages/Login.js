@@ -20,7 +20,6 @@ const Login = (props) => {
     }
     
   const handleCreate = () => {
-    console.log("testing")
     setCreateSequence(true)
     setTimeout(() => props.history.push('/create'), 900)
     document.body.classList.remove("animation")
@@ -43,7 +42,7 @@ const Login = (props) => {
                       <Input onChange={handleChange} type="password" name="password" id="examplePassword" placeholder="Enter your password (6-12 characters)" />
                   </FormGroup>
                   {' '}
-                  <Button className="btn btn-med btn-block" onClick={handleSubmit}>Sign Up</Button>
+                  <Button className="btn btn-med btn-block" onClick={handleSubmit}>Sign In</Button>
                   
                 </Form>
             </div>

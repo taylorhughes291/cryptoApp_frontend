@@ -46,13 +46,13 @@ function App (props) {
   // Functions
   ///////////////////////////////
   const getLogin = (username, password) => {
-    fetch(url + '/wallets/login/' + username + '/' + password)
+    fetch(url + '/users/login/' + username + '/' + password)
     .then((response) => response.json())
     .then((data) => {
       setUser(data);
       if (data.status === 200)
       {
-        setUser(data.data.wallet._id)
+        setUser(data.data.wallet.user)
         props.history.push('/home')
       } else if (data.status === 409) {
         alert('username does not exist')
@@ -67,7 +67,7 @@ function App (props) {
 
   //handle create for the form
 const handleCreate = (newUser) => {
-  fetch(url + "/wallets", {
+  fetch(url + "/users", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -75,10 +75,9 @@ const handleCreate = (newUser) => {
     body: JSON.stringify(newUser)
   }).then((response) => response.json())
   .then((data) =>  {
-    console.log(data.status)
     if(data.status === 200)
     {
-    setUser(data.data._id)
+    setUser(data.data.user)
     props.history.push('/home')
   
   } else if (data.status === 403) {

@@ -45,48 +45,50 @@ function App (props) {
   ///////////////////////////////
   // Functions
   ///////////////////////////////
-  const getLogin = (username, password) => {
+
+    //handle create for the form
+  const handleCreate = (newUser) => {
+    fetch(url + "/users/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser)
+    }).then((response) => response.json())
+    .then((data) =>  {
+      console.log(data)
+      if(data.status === 200){
+        getLogin(data.newUser.username, data.newUser.password)
+      } else if (data.status === 403) {
+        alert('username already exists')
+        props.history.push('/login')
+      }
+    })
+  };
+
+  function getLogin(username, password) {
+    console.log("logging in");
     fetch(url + '/users/login/' + username + '/' + password)
     .then((response) => response.json())
     .then((data) => {
       setUser(data);
       if (data.status === 200)
       {
-        setUser(data.data.wallet.user)
+        setUser(data.data.wallet._id)
         props.history.push('/home')
       } else if (data.status === 409) {
         alert('username does not exist')
         props.history.push('/create')
       } else if (data.status === 403) {
-        alert('username or password is WRONG!')
+        alert('username or password is wrong')
       }
       
 
     })
   }
 
-  //handle create for the form
-const handleCreate = (newUser) => {
-  fetch(url + "/users", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(newUser)
-  }).then((response) => response.json())
-  .then((data) =>  {
-    if(data.status === 200)
-    {
-    setUser(data.data.user)
-    props.history.push('/home')
-  
-  } else if (data.status === 403) {
-    alert('username already exists')
-    props.history.push('/login')
-  }
 
-  })
-};
+
   const getDbData = () => {
     const url = process.env.REACT_APP_BACKENDURL
     const getUrl = url + "/wallets/" + user

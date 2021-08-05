@@ -42,6 +42,7 @@ function App (props) {
     boughtAmount: 0
   }])
   const [coins, setCoins] = useState([])
+  const [responseReceived, setResponseReceived] = useState(false)
 
   ///////////////////////////////
   // Functions
@@ -153,7 +154,7 @@ function App (props) {
       getDbData()
       getApiData()
     }
-  }, [])
+  }, [gState, responseReceived])
 
   useEffect(() => {
     if (user === "") {
@@ -170,11 +171,13 @@ function App (props) {
         <Switch>
           <Route
             exact path="/"
+            key="no-path"
           >
             <Redirect to="/login" />
           </Route>
           <Route
             path="/login"
+            key="login"
           >
             <Login 
               setUser={setUser}
@@ -183,6 +186,7 @@ function App (props) {
           </Route>
           <Route
             path="/create"
+            key="create"
           >
             <CreateAccount 
               setUser={setUser}
@@ -191,6 +195,7 @@ function App (props) {
           </Route>
           <Route
             path="/home"
+            key="home"
           >
             <Home 
               wallet={wallet}
@@ -201,6 +206,7 @@ function App (props) {
           </Route>
           <Route
             path="/wallet"
+            key="wallet"
           >
             <Wallet 
               wallet={wallet}
@@ -210,6 +216,7 @@ function App (props) {
           </Route>
           <Route
             path="/coins"
+            key="coins"
           >
             <Coins 
               coins={coins}
@@ -217,6 +224,7 @@ function App (props) {
           </Route>
           <Route
             path="/transactions"
+            key="transactions"
           >
             <Transactions 
               transactions={transactions}
@@ -225,12 +233,15 @@ function App (props) {
           </Route>
           <Route
             path="/exchange"
+            key="exchange"
           >
             <Exchange 
               coins={coins}
               wallet={wallet}
               user={user}
               url={url}
+              responseReceived={responseReceived}
+              setResponseReceived={setResponseReceived}
             />
           </Route>
         </Switch>

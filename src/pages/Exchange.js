@@ -122,6 +122,7 @@ const Exchange = (props) => {
         .then((response) => response.json())
         .then((data) => {
             if (data.status === 200) {
+                props.setResponseReceived(!props.responseReceived)
                 props.history.push('/wallet')
             }
         })

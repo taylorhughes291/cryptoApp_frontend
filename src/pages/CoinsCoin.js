@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Plotly from "plotly.js/dist/plotly";
 import {Link, useLocation} from "react-router-dom"
 import Numeral from "react-numeral"
@@ -9,10 +9,8 @@ const CoinsCoin = (props) => {
     // Constants
     ///////////////////////
     const location = useLocation()
-    console.log(location.state);
     const selectedCoin = location.state.selectedCoin
     const coinData = props.coins
-    console.log(coinData);
     const coin = coinData.find((item, index) => {
         return (
             item.symbol.toLowerCase() === selectedCoin.toLowerCase()

@@ -41,7 +41,7 @@ const Transactions = (props) => {
         })
     })
 
-    dateArray = [... new Set(dateArray)]
+    dateArray = [...new Set(dateArray)]
 
     let transDisplay = dateArray.map((item, index) => {
         const arr = []
@@ -56,12 +56,9 @@ const Transactions = (props) => {
         })
     })
 
-    console.log(transDisplay)
     transDisplay = transDisplay.map((item, index) => {
         const transactions = item.data.map((item2, index2) => {
             const coinBoughtData = coinData.find((item3, index3) => {
-                console.log("item2:", item2)
-                console.log("item3", item3);
                 return item2.coinBought.toLowerCase() === item3.symbol.toLowerCase()
             })
             const coinSoldData = coinData.find((item3, index3) => {
@@ -70,14 +67,14 @@ const Transactions = (props) => {
             return (
                 <div className="transaction" key={index}>
                     <div className="transaction-item">
-                        <h6 style={{'color': 'green'}}><Numeral value={item2.boughtAmount < 100 ? item2.boughtAmount : Math.round(item2.boughtAmount*100)/100} format={'+0,0.[000000]'} format={'+0,0.[000000]'} /> {item2.coinBought}</h6>
+                        <h6 style={{'color': 'green'}}><Numeral value={item2.boughtAmount < 100 ? item2.boughtAmount : Math.round(item2.boughtAmount*100)/100} format={'+0,0.[000000]'} /> {item2.coinBought}</h6>
                         <div className="image-cont">
                             <img className="coin-logo" src={coinBoughtData.image} alt={`${coinBoughtData.id} logo`} />
                         </div>
                     </div>
                     <i className="fas fa-exchange-alt"></i>
                     <div className="transaction-item">
-                        <h6 style={{'color': 'red'}}><Numeral value={item2.soldAmount < 100 ? (item2.soldAmount * -1) : Math.round(item2.soldAmount * -100)/100} format={'0,0.[000000]'} format={'0,0.[000000]'} /> {item2.coinSold}</h6>
+                        <h6 style={{'color': 'red'}}><Numeral value={item2.soldAmount < 100 ? (item2.soldAmount * -1) : Math.round(item2.soldAmount * -100)/100} format={'0,0.[000000]'} /> {item2.coinSold}</h6>
                         <div className="image-cont">
                             <img className="coin-logo" src={coinSoldData.image} alt={`${coinSoldData.id} logo`} />
                         </div>

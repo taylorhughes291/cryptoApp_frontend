@@ -1,7 +1,6 @@
 import React, {useState} from "react"
 import {Button} from "reactstrap"
 import {Link, Route, Switch} from "react-router-dom"
-import dollar from "../assets/pngfind.com-bling-png-2896086.png"
 import WalletCoin from "./WalletCoin"
 import Numeral from "react-numeral"
 

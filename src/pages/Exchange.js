@@ -18,7 +18,7 @@ const Exchange = (props) => {
         boughtCoin: "",
         boughtAmount: ""
     })
-    const {gState, setGState} = useContext(GlobalCtx)
+    const {gState} = useContext(GlobalCtx)
 
     /////////////////////
     // Functions
@@ -69,7 +69,6 @@ const Exchange = (props) => {
                     item.symbol.toUpperCase() === sellAttributes.symbol.value.toUpperCase()
                 )
             })
-            console.log(sellData);
             setFormData({
                 ...formData,
                 [event.target.name]: event.target.value,

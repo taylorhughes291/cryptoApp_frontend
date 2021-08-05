@@ -75,7 +75,6 @@ function App (props) {
   };
 
   function getLogin(username, password) {
-    console.log("logging in");
     fetch(url + '/users/login/' + username + '/' + password)
     .then((response) => response.json())
     .then((data) => {

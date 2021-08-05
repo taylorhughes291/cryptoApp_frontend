@@ -1,12 +1,9 @@
-import React, {useContext} from 'react'
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import React from 'react'
+import { Button, Form, FormGroup, Input } from 'reactstrap';
 import {useState} from 'react'
 import {withRouter} from 'react-router-dom'
-import {GlobalCtx} from "../App"
 
 const CreateAccount = (props) => {
-    const {gState, setGState} = useContext(GlobalCtx)
-    const {url} = gState
     const [user, setUser] = useState({name: "", username: "", password: ""})
 
     const handleSubmit = (event) => {

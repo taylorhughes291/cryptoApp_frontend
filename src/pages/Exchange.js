@@ -1,6 +1,7 @@
-import React, {useState} from "react"
+import React, {useState, useContext} from "react"
 import {withRouter} from "react-router-dom"
 import {Link} from "react-router-dom"
+import {GlobalCtx} from "../App"
 
 const Exchange = (props) => {
     
@@ -17,6 +18,7 @@ const Exchange = (props) => {
         boughtCoin: "",
         boughtAmount: ""
     })
+    const {gState, setGState} = useContext(GlobalCtx)
 
     /////////////////////
     // Functions
@@ -103,7 +105,8 @@ const Exchange = (props) => {
         fetch(props.url + '/transactions/', {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `bearer ${gState.token}`
             },
             body: JSON.stringify({
                 transaction: {
@@ -119,7 +122,7 @@ const Exchange = (props) => {
         .then((response) => response.json())
         .then((data) => {
             if (data.status === 200) {
-                props.history.push('/home')
+                props.history.push('/wallet')
             }
         })
     }

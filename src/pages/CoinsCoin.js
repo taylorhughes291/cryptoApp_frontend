@@ -1,15 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import Plotly from "plotly.js/dist/plotly";
-import {Link} from "react-router-dom"
+import {Link, useLocation} from "react-router-dom"
 import Numeral from "react-numeral"
 
 const CoinsCoin = (props) => {
     ///////////////////////
     // Constants
     ///////////////////////
-    const selectedCoin = props.selectedCoin
+    const location = useLocation()
+    console.log(location.state);
+    const selectedCoin = location.state.selectedCoin
     const coinData = props.coins
+    console.log(coinData);
     const coin = coinData.find((item, index) => {
         return (
             item.symbol.toLowerCase() === selectedCoin.toLowerCase()
@@ -19,14 +22,9 @@ const CoinsCoin = (props) => {
     // Functions
     ///////////////////////
 
-    useEffect(() => { 
-        getCoindata()
-        .then((graphData) => {
-            totalChart(graphData);
-        });
-    }, []);
 
-    const apiCall = async(url) => {
+
+    const apiCall = async (url) => {
         let response = await fetch(url);
         let data = await response.json();
         return data;
@@ -50,9 +48,6 @@ const CoinsCoin = (props) => {
     };
     
       
-    useEffect(() => {getCoindata()}, [])
-
-
     const totalChart = (data) => {
 		const priceChart = {
             x: data.time.map((time)=> new Date(time)),
@@ -125,13 +120,21 @@ const CoinsCoin = (props) => {
     ///////////////////////
     // Render
     ///////////////////////
+
+    useEffect(() => { 
+        getCoindata()
+        .then((graphData) => {
+            totalChart(graphData);
+        });
+    }, []);
+    
     return (
         <>
             <div className="page-header">
                 <Link
                     to="/coins"
                 >
-                    <i class="fas fa-chevron-left"></i>
+                    <i className="fas fa-chevron-left"></i>
                 </Link>
                 <h3>{coin.name}</h3>
             </div>

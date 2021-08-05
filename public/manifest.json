@@ -4,7 +4,7 @@
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
-  "background_color": "#FFFFFF",
+  "background_color": "#F0F3F6",
   "description": "A simulated crypto marketplace for paper trading",
   "icons" : [
       {

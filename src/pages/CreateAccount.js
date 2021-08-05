@@ -26,7 +26,7 @@ const CreateAccount = (props) => {
     return (
         <div className="create">
             <div className="create-page sequence">
-                <div id="form">
+                <div id="form" tabindex="0">
                     <h2>Create Account</h2>
                     <Form inline >
                     <FormGroup >

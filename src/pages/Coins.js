@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React from "react"
 import {Button} from "reactstrap"
 import {Link, Route, Switch} from "react-router-dom"
 import CoinsCoin from "./CoinsCoin"

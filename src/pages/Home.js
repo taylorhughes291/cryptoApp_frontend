@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React from "react"
 import WalletWidget from "../components/WalletWidget"
 import CoinChart from "../components/CoinChart"
 import {Link} from "react-router-dom"

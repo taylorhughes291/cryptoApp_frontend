@@ -146,7 +146,6 @@ const WalletCoin = (props) => {
         const coinSoldData = coinData.find((item2, index2) => {
             return item.coinSold.toLowerCase() === item2.symbol.toLowerCase()
         })
-        console.log(coinSoldData);
         return (
             <div className="transaction" key={index}>
                 <div className="transaction-item">

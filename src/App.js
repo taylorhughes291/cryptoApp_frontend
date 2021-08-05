@@ -1,5 +1,5 @@
 import './App.sass';
-import {useEffect, useState} from "react"
+import {useEffect, useState, createContext} from "react"
 import {Switch, Route} from "react-router-dom"
 import Login from "./pages/Login"
 import CreateAccount from "./pages/CreateAccount"
@@ -13,7 +13,7 @@ import {withRouter, Redirect} from 'react-router-dom'
 import logo from './assets/logo.png'
 import dollar from "./assets/pngfind.com-bling-png-2896086.png"
 
-
+export const GlobalCtx = createContext(null)
 
 function App (props) {
 
@@ -22,11 +22,12 @@ function App (props) {
   ///////////////////////////////
 
   const url = process.env.REACT_APP_BACKENDURL
+  const [gState, setGState] = useState({
+    token: ""
+  })
   const [user, setUser] = useState("")
   const [wallet, setWallet] = useState({
-    name: "",
-    password: "",
-    username: "",
+    user: "",
     coins: [{
           coin: "",
           amount: ""
@@ -41,6 +42,7 @@ function App (props) {
     boughtAmount: 0
   }])
   const [coins, setCoins] = useState([])
+  const [responseReceived, setResponseReceived] = useState(false)
 
   ///////////////////////////////
   // Functions
@@ -58,7 +60,13 @@ function App (props) {
     .then((data) =>  {
       console.log(data)
       if(data.status === 200){
-        getLogin(data.newUser.username, data.newUser.password)
+        window.localStorage.setItem("token", JSON.stringify(data.accessToken))
+        setGState({
+          ...gState,
+          token: data.accessToken
+        })
+        setUser(data.userID)
+        props.history.push('/home')
       } else if (data.status === 403) {
         alert('username already exists')
         props.history.push('/login')
@@ -71,10 +79,14 @@ function App (props) {
     fetch(url + '/users/login/' + username + '/' + password)
     .then((response) => response.json())
     .then((data) => {
-      setUser(data);
       if (data.status === 200)
       {
-        setUser(data.data.wallet._id)
+        window.localStorage.setItem("token", JSON.stringify(data.accessToken))
+        setUser(data.userID)
+        setGState({
+          ...gState,
+          token: data.accessToken
+        })
         props.history.push('/home')
       } else if (data.status === 409) {
         alert('username does not exist')
@@ -82,8 +94,6 @@ function App (props) {
       } else if (data.status === 403) {
         alert('username or password is wrong')
       }
-      
-
     })
   }
 
@@ -91,8 +101,14 @@ function App (props) {
 
   const getDbData = () => {
     const url = process.env.REACT_APP_BACKENDURL
-    const getUrl = url + "/wallets/" + user
-    fetch(getUrl)
+    const getUrl = url + "/wallets/"
+    fetch(getUrl, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `bearer ${gState.token}`
+      }
+    })
     .then((response) => (response.json()))
     .then((data) => {
       setWallet(data.data.wallet)
@@ -110,7 +126,8 @@ function App (props) {
         id: "US Dollar",
         symbol: "USD",
         image: dollar,
-        name: "US Dollar"
+        name: "US Dollar",
+        current_price: 1
       })
       setCoins(coinArray)
     })
@@ -121,7 +138,25 @@ function App (props) {
   ///////////////////////////////
 
   useEffect(() => {
-    console.log("test body")
+    const token = JSON.parse(window.localStorage.getItem("token"))
+    if (token) {
+      setGState({
+        ...gState,
+        token
+      })
+    } else {
+      props.history.push("/login")
+    }
+  }, [])
+
+  useEffect(() => {
+    if (gState.token !== "") {
+      getDbData()
+      getApiData()
+    }
+  }, [gState, responseReceived])
+
+  useEffect(() => {
     if (user === "") {
       document.body.classList.add('animate')
     } else {
@@ -130,80 +165,92 @@ function App (props) {
   }, [])
 
   return (
-    <div className={props.location.pathname === "/login" || props.location.pathname === "/create" ? "App" : "App logged-in"}>
-      <img className="logo" src={logo} alt="paper-hand logo"/>
-      <Switch>
-        <Route
-          exact path="/"
-        >
-          <Redirect to="/login" />
-        </Route>
-        <Route
-          path="/login"
-        >
-          <Login 
-            setUser={setUser}
-            getLogin={getLogin}
-          />
-        </Route>
-        <Route
-          path="/create"
-        >
-          <CreateAccount 
-            setUser={setUser}
-            handleCreate={handleCreate}
-          />
-        </Route>
-        <Route
-          path="/home"
-        >
-          <Home 
-            wallet={wallet}
-            coins={coins}
-            getDbData={getDbData}
-            getApiData={getApiData}
-          />
-        </Route>
-        <Route
-          path="/wallet"
-        >
-          <Wallet 
-            wallet={wallet}
-            coins={coins}
-            transactions={transactions}
-          />
-        </Route>
-        <Route
-          path="/coins"
-        >
-          <Coins 
-            coins={coins}
-          />
-        </Route>
-        <Route
-          path="/transactions"
-        >
-          <Transactions 
-            transactions={transactions}
-            coinData={coins}
-          />
-        </Route>
-        <Route
-          path="/exchange"
-        >
-          <Exchange 
-            coins={coins}
-            wallet={wallet}
-            user={user}
-            url={url}
-          />
-        </Route>
-      </Switch>
-        <div className={props.location.pathname === "/login" || props.location.pathname === "/create" ? "hidden nav" : "nav"}>
-          <Nav 
-          />
-        </div>
-    </div>
+    <GlobalCtx.Provider value={{gState, setGState}}>
+      <div className={props.location.pathname === "/login" || props.location.pathname === "/create" ? "App" : "App logged-in"}>
+        <img className="logo" src={logo} alt="paper-hand logo"/>
+        <Switch>
+          <Route
+            exact path="/"
+            key="no-path"
+          >
+            <Redirect to="/login" />
+          </Route>
+          <Route
+            path="/login"
+            key="login"
+          >
+            <Login 
+              setUser={setUser}
+              getLogin={getLogin}
+            />
+          </Route>
+          <Route
+            path="/create"
+            key="create"
+          >
+            <CreateAccount 
+              setUser={setUser}
+              handleCreate={handleCreate}
+            />
+          </Route>
+          <Route
+            path="/home"
+            key="home"
+          >
+            <Home 
+              wallet={wallet}
+              coins={coins}
+              getDbData={getDbData}
+              getApiData={getApiData}
+            />
+          </Route>
+          <Route
+            path="/wallet"
+            key="wallet"
+          >
+            <Wallet 
+              wallet={wallet}
+              coins={coins}
+              transactions={transactions}
+            />
+          </Route>
+          <Route
+            path="/coins"
+            key="coins"
+          >
+            <Coins 
+              coins={coins}
+            />
+          </Route>
+          <Route
+            path="/transactions"
+            key="transactions"
+          >
+            <Transactions 
+              transactions={transactions}
+              coinData={coins}
+            />
+          </Route>
+          <Route
+            path="/exchange"
+            key="exchange"
+          >
+            <Exchange 
+              coins={coins}
+              wallet={wallet}
+              user={user}
+              url={url}
+              responseReceived={responseReceived}
+              setResponseReceived={setResponseReceived}
+            />
+          </Route>
+        </Switch>
+          <div className={props.location.pathname === "/login" || props.location.pathname === "/create" ? "hidden nav" : "nav"}>
+            <Nav 
+            />
+          </div>
+      </div>
+    </GlobalCtx.Provider>
   );
 }
 

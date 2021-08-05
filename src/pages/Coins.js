@@ -9,15 +9,11 @@ const Coins = (props) => {
     // Constants
     ///////////////////////
 
-    const [selectedCoin, setSelectedCoin] = useState("")
 
     ///////////////////////
     // functions
     ///////////////////////
 
-    const handleSelect = (coin) => {
-        setSelectedCoin(coin)
-    }
 
     ///////////////////////
     // Render
@@ -27,30 +23,35 @@ const Coins = (props) => {
         const coins = props.coins.map((item, index) => {
             return (
                 <Link
-                    to={`/coins/${item.symbol.toUpperCase()}`}
+                    to={{
+                        pathname: `/coins/${item.symbol.toUpperCase()}`,
+                        state: {
+                            selectedCoin: `${item.symbol}`
+                        }
+                    }}
                     key={index}
                 >
                     <div 
-                    key={index}
-                    className="coin-chart-cont entry"
-                >
-                    <div className="img-name-cont">
-                        <div className="img-cont">
-                            <img 
-                                src={item.image} 
-                                alt={`${item.name} logo`}
-                                className="coin-logo"
-                            />
+                        key={index}
+                        className="coin-chart-cont entry"
+                    >
+                        <div className="img-name-cont">
+                            <div className="img-cont">
+                                <img 
+                                    src={item.image} 
+                                    alt={`${item.name} logo`}
+                                    className="coin-logo"
+                                />
+                            </div>
+                            <div className="coin-name">
+                                <h4>{item.name}</h4>
+                                <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative" }><Numeral value={item.price_change_percentage_24h/100} format={"0.000%"} /></p>
+                            </div>
                         </div>
-                        <div className="coin-name">
-                            <h4>{item.name}</h4>
-                            <p className={item.price_change_percentage_24h > 0 ? "positive" : "negative" }><Numeral value={item.price_change_percentage_24h/100} format={"0.000%"} /></p>
+                        <div className="coin-price">
+                            <h4><Numeral value={item.current_price} format={"$0,0.00"} /></h4>
                         </div>
                     </div>
-                    <div className="coin-price">
-                        <h4><Numeral value={item.current_price} format={"$0,0.00"} /></h4>
-                    </div>
-                </div>
                 </Link>
             )
         })
@@ -63,7 +64,6 @@ const Coins = (props) => {
                     >
                         <CoinsCoin
                             coins={props.coins}
-                            selectedCoin={selectedCoin}
                             transactions={props.transactions}
                         />
                     </Route>

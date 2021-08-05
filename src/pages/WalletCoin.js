@@ -175,7 +175,7 @@ const WalletCoin = (props) => {
                 <Link
                     to="/wallet"
                 >
-                    <i class="fas fa-chevron-left"></i>
+                    <i className="fas fa-chevron-left"></i>
                 </Link>
                 <h3>{coin.name}</h3>
             </div>

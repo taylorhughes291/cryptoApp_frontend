@@ -17,11 +17,6 @@ const Home = (props) => {
     // Render
     ////////////////////////
 
-    useEffect(() => {
-        props.getDbData()
-        props.getApiData()
-    }, [])
-
     return (
         <div id="home">
             <div className="home-wallet home-header">

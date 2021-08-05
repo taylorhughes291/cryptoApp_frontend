@@ -1,0 +1,15 @@
+{
+    "name": "Paperhand",
+    "short_name": "Paperhand",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FFFFFF",
+    "description": "A simulated crypto marketplace for paper trading",
+    "icons" : [
+        {
+            "src": "/src/assets/logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

@@ -1,5 +1,4 @@
 import React from "react"
-import dollar from "../../assets/pngfind.com-bling-png-2896086.png"
 import "./index.css"
 import Numeral from "react-numeral"
 
@@ -19,11 +18,6 @@ const WalletWidget = (props) => {
         const coinArray = props.wallet.coins.slice(0, 3)
         const coins = coinArray.map((item, index) => {
             let coinData = [...props.coins]
-            coinData.push({
-                id: "US Dollar",
-                symbol: "USD",
-                image: dollar,
-            })
             coinData = coinData.find((coinItem, coinIndex) => {
                 return (
                         item.coin.toLowerCase() === coinItem.symbol.toLowerCase()
@@ -71,7 +65,7 @@ const WalletWidget = (props) => {
         )
     }
 
-    return (props.coins.length > 0 && props.wallet.name !== "") ? loaded() : loading()
+    return (props.coins.length > 0 && props.wallet.user !== "") ? loaded() : loading()
 
 }
 

@@ -29,7 +29,7 @@ const Login = (props) => {
       <div className="login">
         <div className={createSequence ? "login-page create-sequence" : "login-page open-sequence"}>
           <div className="form-forgot-cont">
-            <div id= 'form' tabindex="0" >
+            <div id= 'form' tabIndex="0" >
               <h2>Sign In</h2>
                 <Form inline>
                   <FormGroup >

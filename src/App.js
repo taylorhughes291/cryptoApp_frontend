@@ -152,7 +152,6 @@ function App (props) {
     if (gState.token !== "") {
       getDbData()
       getApiData()
-      console.log(coins);
     }
   }, [gState, responseReceived])
 
